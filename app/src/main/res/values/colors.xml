@@ -3,7 +3,8 @@
     <color name="colorPrimary">#4C9069</color>
     <color name="colorPrimaryDark">#3D7254</color>
     <color name="colorAccent">#4D8F69</color>
-    <color name="text_common">#E5000000</color>
-    <color name="text_extra"> #8A000000</color>
-    <color name="text_link">#269DF7</color>
+    <color name="color_text_common">#E5000000</color>
+    <color name="color_text_extra"> #8A000000</color>
+    <color name="color_text_link">#269DF7</color>
+    <color name="color_background_common">#FFFFFF</color>
 </resources>

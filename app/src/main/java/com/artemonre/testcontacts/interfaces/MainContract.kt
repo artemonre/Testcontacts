@@ -15,25 +15,25 @@ interface MainContract{
 
     interface Presenter : LifecycleObserver{
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        fun onCreate()
+        fun onCreate(){}
 
         @OnLifecycleEvent(Lifecycle.Event.ON_START)
-        fun onStart()
+        fun onStart(){}
 
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        fun onResume()
+        fun onResume(){}
 
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-        fun onPause()
+        fun onPause(){}
 
         @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-        fun onStop()
+        fun onStop(){}
 
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        fun onDestroy()
+        fun onDestroy(){}
 
         @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-        fun onChange()
+        fun onChange(){}
 
         fun setLifecycle(lifecycle: Lifecycle, owner: LifecycleOwner)
 
