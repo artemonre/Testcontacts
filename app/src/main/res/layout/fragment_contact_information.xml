@@ -24,32 +24,48 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/fragment_description_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Name Surname"
-        android:textColor="@color/color_text_common"/>
+        android:textSize="18sp"
+        android:textColor="@color/color_text_common"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"/>
 
     <TextView
+        android:id="@+id/fragment_description_phonenumber_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="+7 (987) 654-3213"
-        android:textColor="@color/color_text_link"/>
+        android:textColor="@color/color_text_link"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"/>
 
     <TextView
+        android:id="@+id/fragment_description_temperament_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Temp"
-        android:textColor="@color/color_text_extra"/>
+        android:textColor="@color/color_text_extra"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"/>
 
     <TextView
+        android:id="@+id/fragment_description_datesinterval_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="01.01.1970 - 31.12.9999"
-        android:textColor="@color/color_text_extra"/>
+        android:textColor="@color/color_text_extra"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"/>
 
     <TextView
+        android:id="@+id/fragment_description_info_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Description"
-        android:textColor="@color/color_text_common"/>
+        android:textColor="@color/color_text_common"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"/>
 </LinearLayout>

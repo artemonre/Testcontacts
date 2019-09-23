@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/color_background_common"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/contact_name_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Name Surname"
+            android:textColor="@color/color_text_common"/>
+
+        <TextView
+            android:id="@+id/contact_phonenumber_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="+7 (987) 654-3213"
+            android:textColor="@color/color_text_common"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/contact_height_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:text="180.0"
+        android:textColor="@color/color_text_common"
+        android:textSize="12sp"/>
+
+</LinearLayout>
