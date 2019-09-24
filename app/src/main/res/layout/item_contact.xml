@@ -15,14 +15,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/contact_name_textview"
+            android:id="@+id/item_contact_name_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Name Surname"
             android:textColor="@color/color_text_common"/>
 
         <TextView
-            android:id="@+id/contact_phonenumber_textview"
+            android:id="@+id/item_contact_phonenumber_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="+7 (987) 654-3213"
@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/contact_height_textview"
+        android:id="@+id/item_contact_height_textview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         tools:text="180.0"
