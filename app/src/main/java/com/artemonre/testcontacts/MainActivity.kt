@@ -3,6 +3,7 @@ package com.artemonre.testcontacts
 import android.os.Bundle
 import com.artemonre.testcontacts.App.Companion.MAIN_LOG
 import com.artemonre.testcontacts.base_classes.BaseActivity
+import com.artemonre.testcontacts.ui.ContactsListFragment
 import com.artemonre.testcontacts.utils.MyLog
 import java.util.*
 
@@ -12,8 +13,10 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if(savedInstanceState == null){
+        controller = MainController(this)
 
+        if(savedInstanceState == null){
+            controller.addFragment(R.id.main_fragment_container_layout, ContactsListFragment())
         }
     }
 }

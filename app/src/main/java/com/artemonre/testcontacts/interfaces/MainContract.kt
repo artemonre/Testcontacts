@@ -1,5 +1,6 @@
 package com.artemonre.testcontacts.interfaces
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 interface MainContract{
 
     interface View{
-
+        fun getContext() : Context
     }
 
     interface Presenter : LifecycleObserver{

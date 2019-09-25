@@ -1,0 +1,9 @@
+package com.artemonre.testcontacts.controllers
+
+import android.content.Context
+import com.artemonre.testcontacts.base_classes.BaseController
+import com.artemonre.testcontacts.interfaces.MainContract
+
+class ContactInformationFragmentController(view: MainContract.View, context: Context) : BaseController(view, context){
+
+}
