@@ -24,8 +24,6 @@ open class BaseController(protected var view: MainContract.View, context: Contex
     protected var fragmentManager: FragmentManager
     protected var fragmentTransaction: FragmentTransaction? = null
 
-    protected var adapter: BaseAdapter<Any, *>? = null
-
     private var layoutManager: RecyclerView.LayoutManager? = null
 
     init {

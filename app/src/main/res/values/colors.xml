@@ -7,4 +7,5 @@
     <color name="color_text_extra"> #8A000000</color>
     <color name="color_text_link">#269DF7</color>
     <color name="color_background_common">#FFFFFF</color>
+    <color name="color_divider">#CCCCCC</color>
 </resources>

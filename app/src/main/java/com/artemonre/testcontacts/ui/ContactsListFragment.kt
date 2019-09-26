@@ -28,6 +28,7 @@ class ContactsListFragment : BaseFragment() {
         findViews()
         controller.setRecycler(recyclerView!!, true, true)
         controller.setDivider(recyclerView!!, R.drawable.divider_thin)
+        controller.setAdapter(recyclerView!!)
 
         super.onCreateView(inflater, container, savedInstanceState)
 
@@ -50,5 +51,14 @@ class ContactsListFragment : BaseFragment() {
 
         progressLayout = rootView.findViewById(R.id.fragment_list_progress_layout)
         loadingProgressbar = rootView.findViewById(R.id.fragment_list_loading_progressbar)
+    }
+
+    fun setRecyclerVisibility(visibility: Int){
+        if(recyclerView != null)
+            recyclerView!!.visibility = visibility
+    }
+
+    fun setProgressVisibility(visibility: Int){
+        progressLayout.visibility = visibility
     }
 }

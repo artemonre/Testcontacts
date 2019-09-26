@@ -43,9 +43,10 @@ interface MainContract{
 
         fun setRecycler(recyclerView: RecyclerView, vertical: Boolean, hasFixedSize: Boolean)
         fun setDivider(recyclerView: RecyclerView, divider: Int)
+        fun setAdapter(recyclerView: RecyclerView){}
     }
 
     interface Model{
-
+        fun downloadContacts(callback: Callback)
     }
 }
