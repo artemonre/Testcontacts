@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.RecyclerView
+import com.artemonre.testcontacts.app_objects.Contact
 
 interface MainContract{
 
@@ -48,5 +49,7 @@ interface MainContract{
 
     interface Model{
         fun downloadContacts(callback: Callback)
+        fun getContacts(): List<Contact>
+        fun getContact(position: Int): Contact
     }
 }

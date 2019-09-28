@@ -1,9 +1,13 @@
 package com.artemonre.testcontacts.utils
 
+import com.artemonre.testcontacts.App.Companion.MAIN_LOG
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 
 import java.util.HashMap
 import java.util.regex.Pattern
+import java.text.ParseException
+
 
 object Utils {
 
@@ -83,4 +87,21 @@ object Utils {
         return stringBuilder.toString()
     }
 
+    private const val DATE_PATTERN_RAW = "yyyy-mm-DD"
+    private const val DATE_PATTERN_NORMAL = "DD.mm.yyyy"
+
+    fun getNormalDateFromRaw(rawDate: String): String{
+        val rawSimpleDate = SimpleDateFormat(DATE_PATTERN_RAW)
+
+        try {
+            val mDate = rawSimpleDate.parse(rawDate)
+            val normalSimpleDate = SimpleDateFormat(DATE_PATTERN_NORMAL)
+
+            return normalSimpleDate.format(mDate)
+        } catch (e: ParseException) {
+            MyLog.d(MAIN_LOG, "parse date exception", e)
+        }
+
+        return ""
+    }
 }

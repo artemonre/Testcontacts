@@ -1,5 +1,7 @@
 package com.artemonre.testcontacts.app_objects
 
+import com.artemonre.testcontacts.utils.CommonException
+
 data class Contact(var id: String,
                    var name: String,
                    var phone: String,
@@ -11,11 +13,20 @@ data class Contact(var id: String,
 }
 
 enum class Temperament(val title: String){
-    MELANCHOLIC("melancholic"), PHLEGMATIC("phlegmatic"), SANGUINE("sanguine"), CHOLERIC("choleric")
+
+    MELANCHOLIC("melancholic"), PHLEGMATIC("phlegmatic"), SANGUINE("sanguine"), CHOLERIC("choleric");
+
+    @Throws(CommonException::class)
+    fun getTemperament(title: String): Temperament{
+        for(temperament in values()){
+            if(title.equals(temperament.title))
+                return temperament
+        }
+
+        throw CommonException()
+    }
 }
 
-object EducationPeriod{
-
-    var start = ""
-    var end = ""
+data class EducationPeriod(var start: String,
+                           var end: String){
 }

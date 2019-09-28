@@ -8,9 +8,12 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ProgressBar
+import com.artemonre.testcontacts.App.Companion.MAIN_LOG
+import com.artemonre.testcontacts.MainActivity
 import com.artemonre.testcontacts.R
 import com.artemonre.testcontacts.base_classes.BaseFragment
 import com.artemonre.testcontacts.controllers.ContactsListFragmentController
+import com.artemonre.testcontacts.utils.MyLog
 
 class ContactsListFragment : BaseFragment() {
 
@@ -19,6 +22,8 @@ class ContactsListFragment : BaseFragment() {
     private lateinit var searchEdittext: EditText
     private lateinit var progressLayout: FrameLayout
     private lateinit var loadingProgressbar: ProgressBar
+
+    private var actualPosition = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_contacts_list, null)
@@ -60,5 +65,15 @@ class ContactsListFragment : BaseFragment() {
 
     fun setProgressVisibility(visibility: Int){
         progressLayout.visibility = visibility
+    }
+
+    fun showContactInformation(position: Int){
+        (context as MainActivity).showContactInformation(position)
+        actualPosition = position
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        MyLog.d(MAIN_LOG, "save instance state", this)
     }
 }

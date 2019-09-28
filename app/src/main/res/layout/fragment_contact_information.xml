@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:id="@+id/toolbar_search_imagebutton"
+            android:id="@+id/toolbar_back_imageview"
             android:layout_width="48dp"
             android:layout_height="match_parent"/>
     </LinearLayout>
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Name Surname"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textColor="@color/color_text_common"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"/>
@@ -40,7 +40,9 @@
         tools:text="+7 (987) 654-3213"
         android:textColor="@color/color_text_link"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:id="@+id/fragment_description_temperament_textview"
