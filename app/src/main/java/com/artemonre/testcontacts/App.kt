@@ -34,6 +34,9 @@ class App : Application(){
 
     companion object{
         const val MAIN_LOG = "mainLog"
+        const val UPDATE_CONTACTS_DELAY_MILLIS = 60 * 60 * 1000L
+
+        var contactsIsOld = false
 
         lateinit var api: RequestApi
             private set

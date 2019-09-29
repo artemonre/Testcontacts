@@ -19,7 +19,7 @@ object Repository: Callback{
 
     private var requestApiHelper: RequestApiHelper
 
-    private lateinit var contacts: List<Contact>
+    private var contacts: List<Contact>? = null
     private var downloadContactsCallback: Callback? = null
 
     private var downloadRequests: List<String>? = null
@@ -41,7 +41,7 @@ object Repository: Callback{
         }
     }
 
-    fun getContacts(): List<Contact> {
+    fun getContacts(): List<Contact>? {
         return contacts
     }
 
@@ -51,14 +51,14 @@ object Repository: Callback{
 
             MyLog.d(MAIN_LOG, "list size = ${(arg.first as List<ContactGson>).size}", this)
 
-            synchronized(contacts){
+            synchronized(contacts!!){
                 (contacts as ArrayList).addAll(tempContacts)
                 (downloadRequests as ArrayList).remove(arg.second)
             }
 
             if(downloadRequests != null && downloadRequests!!.size == 0 && downloadContactsCallback != null){
-                MyLog.d(MAIN_LOG, "contacts size = ${contacts.size}", this)
-                downloadContactsCallback!!.callback(contacts)
+                MyLog.d(MAIN_LOG, "contacts size = ${contacts!!.size}", this)
+                downloadContactsCallback!!.callback(contacts!!)
             }
         }
     }

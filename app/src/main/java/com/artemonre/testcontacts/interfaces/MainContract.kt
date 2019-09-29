@@ -49,7 +49,7 @@ interface MainContract{
 
     interface Model{
         fun downloadContacts(callback: Callback)
-        fun getContacts(): List<Contact>
+        fun getContacts(): List<Contact>?
         fun getContact(position: Int): Contact
     }
 }
