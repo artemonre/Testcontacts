@@ -18,7 +18,7 @@ class RequestApiHelper {
             }
 
             override fun onFailure(call: Call<List<ContactGson>>, t: Throwable) {
-                MyLog.d(MAIN_LOG, "fet contacts error", t)
+                callback.callback(t)
             }
         })
     }

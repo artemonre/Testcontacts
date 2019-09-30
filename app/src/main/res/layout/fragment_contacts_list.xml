@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:background="@color/color_background_common">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/toolbar_main_layout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -19,61 +19,58 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageButton
-            android:id="@+id/toolbar_search_imagebutton"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:background="@color/color_background_common"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
-
         <EditText
             android:id="@+id/toolbar_search_edittext"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:textColor="@color/color_text_common"
             android:hint="@string/text_search"
             android:textColorHint="@color/color_text_extra"
             android:textSize="12sp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:background="@color/color_background_common"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_margin="8dp"
+            android:paddingStart="48dp"
+            android:paddingEnd="56dp"
+            android:background="@color/color_background_common" />
+
+        <ImageView
+            android:id="@+id/toolbar_search_imagebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/icon_glass"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="16dp"/>
 
         <ImageButton
             android:id="@+id/toolbar_search_delete_text_imagebutton"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@color/color_background_common"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"/>
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_list_contacts_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
+            app:srcCompat="@drawable/icon_cross"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="24dp"/>
+    </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/fragment_list_progress_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/fragment_list_contacts_swiperefreshlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_list_contacts_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
             android:id="@+id/fragment_list_loading_progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 
 </LinearLayout>

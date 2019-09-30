@@ -13,6 +13,8 @@ interface MainContract{
 
     interface View{
         fun getContext() : Context
+        fun showSnackbar(text: String)
+        fun showSnackbar(stringResource: Int)
     }
 
     interface Presenter : LifecycleObserver{

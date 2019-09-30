@@ -3,4 +3,6 @@
     <string name="text_search">Поиск</string>
 
     <string name="url_base">https://raw.githubusercontent.com/</string>
+
+    <string name="error_ethernet_connection">Нет подключения к сети</string>
 </resources>

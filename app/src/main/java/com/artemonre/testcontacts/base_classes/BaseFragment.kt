@@ -27,6 +27,14 @@ open class BaseFragment : Fragment(), MainContract.View {
         return rootView.context
     }
 
+    override fun showSnackbar(text: String) {
+        (context as MainContract.View).showSnackbar(text)
+    }
+
+    override fun showSnackbar(stringResource: Int) {
+        (context as MainContract.View).showSnackbar(stringResource)
+    }
+
     fun onBackPressed(): Boolean {
         return true
     }

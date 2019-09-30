@@ -3,15 +3,19 @@ package com.artemonre.testcontacts.recycler_adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.artemonre.testcontacts.App.Companion.MAIN_LOG
 import com.artemonre.testcontacts.R
 import com.artemonre.testcontacts.app_objects.Contact
 import com.artemonre.testcontacts.base_classes.BaseAdapter
-import com.artemonre.testcontacts.utils.MyLog
+import com.artemonre.testcontacts.utils.Utils
 
-class ContactsAdapter : BaseAdapter<Contact, ContactsAdapter.ViewHolder>() {
+
+class ContactsAdapter : BaseAdapter<Contact, ContactsAdapter.ViewHolder>(), Filterable {
+
+    private var filteredContacts: List<Contact>? = null
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var nameText: TextView
@@ -31,10 +35,8 @@ class ContactsAdapter : BaseAdapter<Contact, ContactsAdapter.ViewHolder>() {
         val vh = ViewHolder(v)
 
         v.setOnClickListener { view ->
-            MyLog.d(MAIN_LOG, "on item click", MenuScreenAdapter@this);
             if (onItemClickListener != null) {
-                MyLog.d(MAIN_LOG, "on item click !null", MenuScreenAdapter@this);
-                onItemClickListener!!.onItemClicked(vh.adapterPosition)
+                onItemClickListener!!.onItemClicked(items!!.indexOf(filteredContacts!![vh.adapterPosition]))
             }
         }
 
@@ -42,9 +44,9 @@ class ContactsAdapter : BaseAdapter<Contact, ContactsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.nameText.text = items!![position].name
-        holder.phoneNumberText.text = items!![position].phone
-        holder.heightText.text = items!![position].height.toString()
+        holder.nameText.text = filteredContacts!![position].name
+        holder.phoneNumberText.text = filteredContacts!![position].phone
+        holder.heightText.text = filteredContacts!![position].height.toString()
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -52,14 +54,46 @@ class ContactsAdapter : BaseAdapter<Contact, ContactsAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return if (items == null)
+        return if (filteredContacts == null)
             0
         else
-            items!!.size
+            filteredContacts!!.size
     }
 
     override fun setData(items: MutableList<Contact>) {
         this.items = items
         notifyDataSetChanged()
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
+                val charString = charSequence.toString()
+                if (charString.isEmpty()) {
+                    filteredContacts = items
+                } else {
+                    val filteredList = ArrayList<Contact>()
+                    for(row in items!!) {
+
+                        val rawPhone = Utils.getRawPhoneNumber(row.phone)
+
+                        if (row.name.toLowerCase().contains(charString.toLowerCase()) || rawPhone.contains(charSequence)) {
+                            filteredList.add(row)
+                        }
+                    }
+
+                    filteredContacts = filteredList
+                }
+
+                val filterResults = FilterResults()
+                filterResults.values = filteredContacts
+                return filterResults
+            }
+
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+                filteredContacts = filterResults.values as ArrayList<Contact>
+                notifyDataSetChanged()
+            }
+        }
     }
 }

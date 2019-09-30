@@ -11,6 +11,7 @@ import com.artemonre.testcontacts.http.ContactGson
 import com.artemonre.testcontacts.http.RequestApiHelper
 import com.artemonre.testcontacts.utils.CommonException
 import com.artemonre.testcontacts.utils.MyLog
+import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 import java.util.*
 
@@ -49,17 +50,16 @@ object Repository: Callback{
         if(arg is Pair<*,*>){
             val tempContacts = getContactsFromContactsGsons(arg.first as List<ContactGson>)
 
-            MyLog.d(MAIN_LOG, "list size = ${(arg.first as List<ContactGson>).size}", this)
-
             synchronized(contacts!!){
                 (contacts as ArrayList).addAll(tempContacts)
                 (downloadRequests as ArrayList).remove(arg.second)
             }
 
             if(downloadRequests != null && downloadRequests!!.size == 0 && downloadContactsCallback != null){
-                MyLog.d(MAIN_LOG, "contacts size = ${contacts!!.size}", this)
                 downloadContactsCallback!!.callback(contacts!!)
             }
+        }else if(arg is Throwable){
+            downloadContactsCallback!!.callback(arg)
         }
     }
 
@@ -71,7 +71,7 @@ object Repository: Callback{
             tempEducationPeriod = EducationPeriod(contactGson.educationPeriod.start, contactGson.educationPeriod.end)
 
             tempList.add(Contact(contactGson.id, contactGson.name, contactGson.phone, contactGson.height,
-                    contactGson.biography, Temperament.SANGUINE.getTemperament(contactGson.temperament), tempEducationPeriod))
+                    contactGson.biography, Temperament.valueOf(contactGson.temperament), tempEducationPeriod))
         }
 
         return tempList

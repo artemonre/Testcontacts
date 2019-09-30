@@ -6,9 +6,8 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.artemonre.testcontacts.App
 import com.artemonre.testcontacts.App.Companion.MAIN_LOG
-import com.artemonre.testcontacts.MainActivity
+import com.artemonre.testcontacts.R
 import com.artemonre.testcontacts.app_objects.Contact
-import com.artemonre.testcontacts.base_classes.BaseActivity
 import com.artemonre.testcontacts.base_classes.BaseController
 import com.artemonre.testcontacts.interfaces.Callback
 import com.artemonre.testcontacts.interfaces.MainContract
@@ -17,6 +16,7 @@ import com.artemonre.testcontacts.recycler_adapters.ContactsAdapter
 import com.artemonre.testcontacts.ui.ContactsListFragment
 import com.artemonre.testcontacts.utils.MyLog
 import com.artemonre.testcontacts.utils.Utils
+import java.net.UnknownHostException
 
 class ContactsListFragmentController(view: MainContract.View, context: Context) : BaseController(view, context), Callback, OnItemClickListener<Int> {
 
@@ -25,24 +25,33 @@ class ContactsListFragmentController(view: MainContract.View, context: Context) 
     private lateinit var adapter: ContactsAdapter
 
     private var updateContactsHandler: Handler? = null
-    private var filterContactsThread: Thread? = null
 
     override fun onStart() {
         super.onStart()
 
-        downloadContactsIfNeed(false)
-    }
-
-    fun downloadContactsIfNeed(isManualUpdate: Boolean){
-        if(Utils.isEmpty(model.getContacts())
-                || App.contactsIsOld
-                || isManualUpdate){
-            model.downloadContacts(this)
+        if(!downloadContactsIfNeed(false)) {
+            contacts = model.getContacts()!!
+            adapter.setData(contacts as MutableList<Contact>)
+            adapter.filter.filter("")
+            showContactsList()
         }
     }
 
+    fun downloadContactsIfNeed(isManualUpdate: Boolean) : Boolean{
+        if(Utils.isEmpty(model.getContacts())
+                || App.contactsOld
+                || isManualUpdate){
+            model.downloadContacts(this)
+
+            hideContactsList()
+
+            return true
+        }
+
+        return false
+    }
+
     override fun setAdapter(recyclerView: RecyclerView) {
-//        TODO do it normal if possible
         adapter = ContactsAdapter()
         adapter.setData(contacts as MutableList<Contact>)
         adapter.onItemClickListener = this as OnItemClickListener<Any>
@@ -54,31 +63,40 @@ class ContactsListFragmentController(view: MainContract.View, context: Context) 
         (view as ContactsListFragment).showContactInformation(arg)
     }
 
-    fun filterContacts(searchText: String, context: Context){
-        if(filterContactsThread != null && filterContactsThread!!.isAlive){
-            filterContactsThread!!.interrupt()
-        }
-
-        filterContactsThread = Thread(FilterContactsRunnable(context))
-        filterContactsThread!!.start()
+    fun filterContacts(searchText: String){
+        adapter.filter.filter(searchText)
     }
 
-    private fun setFilteredContacts(){
-        if(filteredContacts != null)
-            adapter.setData(filteredContacts as MutableList<Contact>)
+    fun setEmptyFilter(){
+        filteredContacts = null
+        adapter.setData(contacts as MutableList<Contact>)
+        adapter.filter.filter("")
     }
 
     override fun callback(arg: Any) {
-        MyLog.d(MAIN_LOG, "contacts loaded", this)
         if(arg is List<*> && arg[0] is Contact){
-            adapter.setData(arg as MutableList<Contact>)
+            contacts = arg as List<Contact>
+            adapter.setData(contacts as MutableList<Contact>)
+            adapter.filter.filter("")
 
-            (view as ContactsListFragment).setRecyclerVisibility(View.VISIBLE)
-            (view as ContactsListFragment).setProgressVisibility(View.GONE)
+            showContactsList()
 
-            App.contactsIsOld = false
+            App.contactsOld = false
             startUpdateTimer()
+        }else if(arg is Throwable){
+            if(arg.javaClass == UnknownHostException().javaClass)
+                view.showSnackbar(R.string.error_ethernet_connection)
         }
+    }
+
+    private fun showContactsList(){
+        (view as ContactsListFragment).setRecyclerVisibility(View.VISIBLE)
+        (view as ContactsListFragment).setProgressVisibility(View.GONE)
+    }
+
+    private fun hideContactsList(){
+        (view as ContactsListFragment).setRecyclerVisibility(View.GONE)
+        (view as ContactsListFragment).setProgressVisibility(View.VISIBLE)
     }
 
     private fun startUpdateTimer(){
@@ -92,16 +110,7 @@ class ContactsListFragmentController(view: MainContract.View, context: Context) 
 
     inner class TimerUpdateContacts : Runnable{
         override fun run() {
-            App.contactsIsOld = true
-        }
-    }
-
-    inner class FilterContactsRunnable(val context: Context) : Runnable{
-
-        override fun run() {
-
-
-            (context as BaseActivity).runOnUiThread{setFilteredContacts()}
+            App.contactsOld = true
         }
     }
 }

@@ -19,8 +19,11 @@
 
         <ImageView
             android:id="@+id/toolbar_back_imageview"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/icon_arrow_left"/>
     </LinearLayout>
 
     <TextView

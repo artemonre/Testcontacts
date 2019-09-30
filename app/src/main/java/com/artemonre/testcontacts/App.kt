@@ -19,13 +19,13 @@ class App : Application(){
                 .setLenient()
                 .create()
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+//        val interceptor = HttpLoggingInterceptor()
+//        interceptor.level = HttpLoggingInterceptor.Level.BODY
+//        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
         retrofit = Retrofit.Builder()
                 .baseUrl(applicationContext.resources.getString(R.string.url_base))
-                .client(client)
+//                .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
@@ -34,9 +34,9 @@ class App : Application(){
 
     companion object{
         const val MAIN_LOG = "mainLog"
-        const val UPDATE_CONTACTS_DELAY_MILLIS = 60 * 60 * 1000L
+        const val UPDATE_CONTACTS_DELAY_MILLIS = 60 * 1000L
 
-        var contactsIsOld = false
+        var contactsOld = false
 
         lateinit var api: RequestApi
             private set

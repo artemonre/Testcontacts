@@ -2,11 +2,13 @@ package com.artemonre.testcontacts.utils
 
 import com.artemonre.testcontacts.App.Companion.MAIN_LOG
 import org.json.JSONObject
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
 import java.util.HashMap
 import java.util.regex.Pattern
 import java.text.ParseException
+import java.text.ParsePosition
 
 
 object Utils {
@@ -41,6 +43,13 @@ object Utils {
         return list == null || list.isEmpty()
     }
 
+    fun isNumeric(s: String): Boolean{
+        val formatter = NumberFormat.getInstance()
+        val pos = ParsePosition(0)
+        formatter.parse(s, pos)
+        return s.length == pos.getIndex()
+    }
+
     fun isEmail(email: String): Boolean {
         val p = Pattern.compile(".+@.+\\..+")
         val m = p.matcher(email)
@@ -69,22 +78,11 @@ object Utils {
         return hashMap
     }
 
-    private fun getJsonStringFromHashMap(hashMap: HashMap<String, Boolean>): String {
-        if (!Utils.isEmpty(hashMap)) {
-            val jsonObject = JSONObject(hashMap)
-            return jsonObject.toString()
-        } else
-            return ""
-    }
+    fun getRawPhoneNumber(phone: String): String{
+        val regex = Regex(pattern = "[-+.^:, ()]")
+        val charSequence = phone.subSequence(0, phone.length).replace(regex, "")
 
-    fun getStringFromArray(stringArray: Array<String>): String {
-        val stringBuilder = StringBuilder()
-        for (i in stringArray.indices) {
-            if (i > 0)
-                stringBuilder.append(",")
-            stringBuilder.append(stringArray[i])
-        }
-        return stringBuilder.toString()
+        return charSequence
     }
 
     private const val DATE_PATTERN_RAW = "yyyy-mm-DD"

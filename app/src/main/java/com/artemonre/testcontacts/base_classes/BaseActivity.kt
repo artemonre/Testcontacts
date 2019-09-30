@@ -11,4 +11,10 @@ open class BaseActivity : AppCompatActivity(), MainContract.View{
     override fun getContext(): Context {
         return this
     }
+
+    override fun showSnackbar(text: String) {
+    }
+
+    override fun showSnackbar(stringResource: Int) {
+    }
 }

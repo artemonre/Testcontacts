@@ -14,7 +14,7 @@ data class Contact(var id: String,
 
 enum class Temperament(val title: String){
 
-    MELANCHOLIC("melancholic"), PHLEGMATIC("phlegmatic"), SANGUINE("sanguine"), CHOLERIC("choleric");
+    melancholic("Melancholic"), phlegmatic("Phlegmatic"), sanguine("Sanguine"), choleric("Choleric");
 
     @Throws(CommonException::class)
     fun getTemperament(title: String): Temperament{
